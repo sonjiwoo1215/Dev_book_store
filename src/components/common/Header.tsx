@@ -1,44 +1,34 @@
-import  styled  from "styled-components";
+import styled from "styled-components";
 import ThemeSwitcher from "../header/ThemeSwitcher";
 import logo from "../../assets/images/logo.png";
 import { FaSignInAlt, FaRegUser } from "react-icons/fa";
-
-const CATEGORY = [
-  {
-    id: null,
-    name: "전체",
-  },
-  {
-    id: 0,
-    name: "동화",
-  },
-  {
-    id: 1,
-    name: "소설",
-  },
-  {
-    id: 2,
-    name: "사회",
-  },
-];
+import { Link } from "react-router-dom";
+import { Category } from "../../models/category.model";
+import { useEffect, useState } from "react";
+import { fetchCategory } from "../../api/category.api";
+import { useCategory } from "../../hooks/useCategory";
 
 function Header() {
+  const {category} = useCategory();
+
   return (
     <HeaderStyle>
       <h1 className="logo">
-        <img src={logo} alt="book store" />
+        <Link to="/">
+          <img src={logo} alt="book store" />
+        </Link>
       </h1>
       <nav className="category">
         <ul>
-          {CATEGORY.map((item) => (
+          {category.map((item) => (
             <li key={item.id}>
-              <a
-                href={
+              <Link
+                to={
                   item.id === null ? "/books" : `/books?category_id=${item.id}`
                 }
               >
                 {item.name}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
@@ -47,7 +37,7 @@ function Header() {
         <ul>
           <li>
             <a href="/login">
-            <FaSignInAlt />
+              <FaSignInAlt />
               로그인
             </a>
           </li>

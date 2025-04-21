@@ -19,11 +19,7 @@ export const state = {
 
 export const ThemeContext = createContext<State>(state);
 
-export const BookStoreThemeProvider = ({
-  children,
-}: {
-  children: ReactNode;
-}) => {
+export const BookStoreThemeProvider = ({children}: {children: ReactNode}) => {
   const [themeName, setThemeName] = useState<ThemeName>("light");
 
   const toggleTheme = () => {
